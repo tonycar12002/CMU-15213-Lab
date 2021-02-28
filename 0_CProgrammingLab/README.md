@@ -1,11 +1,13 @@
 # Lab0 CProgrammingLab
 
-The original tar file is `cprogramminglab-handout.tar` and the writeup is
-`cprogramminglab.pdf`. My solution is in `cprogramminglab-handout-solution`.
+* 原始壓縮檔: cprogramminglab-handout.tar
+* lab说明： cprogramminglab.pdf.
+* 自行练习解答: cprogramminglab-handout-solution
 
+
+## 说明（fork repo内建）
 After untaring cprogramminglab-handout.tar, you follow the instructions in 
-`cprogramming.pdf` to untar the folder. You can run `make` directly, but you
-cannot run `make test`, since `./driver.py` is used. 
+`cprogramming.pdf` to untar the folder. You can run `make` directly
 
 - To run `make test`:
 1. Install python2 in your environment;
