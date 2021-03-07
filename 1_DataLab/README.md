@@ -1,17 +1,21 @@
 # Lab1 DataLab
+* 原始压缩档： `datalab-handout.tar`
+* lab说明： `datalab.pdf`
+* 我的解答： `datalab-handout-solution`
 
-The original tar file is `datalab-handout.tar` and the writeup is
-`datalab.pdf`. My solution is in `datalab-handout-solution`.
+## My notes
+1. Trobleshooting
+  ```
+  skipping incompatible /usr/lib/gcc/x86_64-linux-gnu/9/libgcc.a when searching for -lgcc
+  ```
+  Solition: remove -m32 in Makefile
 
-When working on WSL on Windows, I need to remove the `-m32` flag
-in the `Makefile` in order to compile. In addition, on WSL, running
-`./btest` gives me full mark and running `./dlc bits.c` gives no
-warning or violation, but `./driver.pl` gives me zero mark. This might
-be because of the removal of the `-m32` flag in `Makefile`.
+2. bitXor  
+   主要注意负数转正数会overflow即可
 
-`Possible solution.txt` contains sites that are helpful when working on the lab.  
+## Original fork repo notes
+`Possible solution.txt` contains sites that are helpful when working on the lab. 
 
-### Difficult problems
 1. `conditional`  
     Reference: https://stackoverflow.com/questions/10034470/conditional-statement-using-bitwise-operators/10034623#10034623  
     Most important technique:
