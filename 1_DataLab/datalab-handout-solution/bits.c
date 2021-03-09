@@ -130,6 +130,27 @@ NOTES:
 
 
 #endif
+void print(int x) {
+  char c[33];
+  int y = x;
+  for (int i = 0; i < 32; ++i)
+    c[i] = '0';
+  int i = 0;
+  int is_neg = 0;
+  if (x < 0) {
+    is_neg = 1;
+    x = -x;
+  }
+  c[32] = '\0';
+  while (x != 0) {
+    c[32 - i - 1] = (x % 2 + 48);
+    x = x / 2;
+    ++i;
+  }
+  if (is_neg)
+    c[0] = '1';
+  printf("%d = %s\n", y, c);
+}
 //1
 /* 
  * bitXor - x^y using only ~ and & 
@@ -174,10 +195,16 @@ int isTmax(int x) {
  *   Rating: 2
  */
 int allOddBits(int x) {
-  int shift_or = x | (x << 1);
-  int all_one = ~0;
-  int check_all_one = ~(shift_or & all_one);
-  return !check_all_one;
+  int aa = 0x55; // 01010101
+  int eight_1 = x | aa;
+  int eight_2 = (x >> 8) | aa;
+  eight_2 = eight_2 << 8;
+  int eight_3 = (x >> 16) | aa;
+  eight_3 = eight_3 << 16;
+  int eight_4 = (x >> 24) | aa;
+  eight_4 = eight_4 << 24;
+  int is_zero = ~(eight_1 | eight_2 | eight_3 | eight_4);
+  return !is_zero;
 }
 /* 
  * negate - return -x 
@@ -187,9 +214,7 @@ int allOddBits(int x) {
  *   Rating: 2
  */
 int negate(int x) {
-  int is_negative = x>>31;  // 1 if neg, 0 is pos
-  
-  return ;
+  return ~x + 1;
 }
 //3
 /* 
@@ -202,7 +227,19 @@ int negate(int x) {
  *   Rating: 3
  */
 int isAsciiDigit(int x) {
-  return 2;
+  // 0x30 = 00110000
+  // 0x39 = 00111001
+  int high = 0xFF;
+  int for_comppare_high = (high << 4) + high;
+  for_comppare_high = for_comppare_high << 4 + high;
+  for_comppare_high = for_comppare_high << 4 + high;
+  int compare_high = (x & 0xFFFFFFC0); // zero is good
+  int compare_6 = (x & 0x20) >> 5; // one will be good
+  int compare_5 = (x & 0x10) >> 4;  // one will be good
+  int tmp = x & 0xF;  // get lower 4 bits
+  int add = 0x6 + tmp;
+  int compare_5_carry = (add & 0x30) >> 4; // one is bad
+  return !compare_high & compare_6 & compare_5 & !compare_5_carry;
 }
 /* 
  * conditional - same as x ? y : z 
@@ -212,7 +249,10 @@ int isAsciiDigit(int x) {
  *   Rating: 3
  */
 int conditional(int x, int y, int z) {
-  return 2;
+  // 負數>>補-1 正數補0
+  x = !x; // one for z, zero for y
+  int all_same = (x << 31) >> 31;  // create all one(z) or zero(y)
+  return (all_same & z) + (~all_same & y);
 }
 /* 
  * isLessOrEqual - if x <= y  then return 1, else return 0 
@@ -234,6 +274,7 @@ int isLessOrEqual(int x, int y) {
  *   Rating: 4 
  */
 int logicalNeg(int x) {
+  int and = x & 
   return 2;
 }
 /* howManyBits - return the minimum number of bits required to represent x in
